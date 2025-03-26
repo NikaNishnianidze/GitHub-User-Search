@@ -2,9 +2,16 @@
 
 @theme {
   --shadow-custom: 0px 16px 30px -10px #4660bb33;
-  --color-input: #fefefe;
-  --color-search: #0079ff;
-  --color-followers: #f6f8ff;
+  --color-input-light: #fefefe;
+  --color-input-dark: #1e2a47;
+  --color-search-light: #0079ff;
+  --color-search-dark: #0079ff;
+  --color-followers-light: #f6f8ff;
+  --color-followers-dark: #141d2f;
+
+  --breakpoint-mb: 375px;
+  --breakpoint-tb: 768px;
+  --breakpoint-dk: 1440px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
