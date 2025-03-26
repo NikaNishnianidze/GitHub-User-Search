@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { use } from "react";
 import moonIcon from "../public/assets/icon-moon.svg";
 import searchIcon from "../public/assets/icon-search.svg";
 import locationIcon from "../public/assets/icon-location.svg";
@@ -13,6 +13,7 @@ function App() {
   const [user, setUser] = useState();
   const [userSearch, setUserSearch] = useState("octocat");
   const [darkMode, setDarkMode] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     getUser();
@@ -22,11 +23,16 @@ function App() {
     if (event) {
       event.preventDefault();
     }
+    setErrorMessage(null);
 
     try {
       const response = await fetch(
         `https://api.github.com/users/${userSearch}`
       );
+      if (!response.ok) {
+        setErrorMessage("no result");
+        return;
+      }
       const jsonData = await response.json();
       setUser(jsonData);
     } catch (error) {
@@ -55,7 +61,7 @@ function App() {
 
   return (
     <div className="main-container flex flex-col items-center justify-center">
-      <header className="flex justify-between items-center w-[375px] pt-[31px] px-[24px] tb:w-[768px] tb:pt-[140px] tb:px-[98px]">
+      <header className="flex justify-between items-center w-[375px] pt-[31px] px-[24px] tb:w-[768px] tb:pt-[140px] tb:px-[98px] dk:w-[1440px] dk:pt-[144px] dk:px-[355px]">
         <div className="left">
           <h1
             className={`${
@@ -95,19 +101,24 @@ function App() {
             darkMode ? "bg-input-dark" : "bg-input-light"
           } rounded-[15px] text-[13px] ${
             darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
-          } tb:w-[573px] tb:pl-[80px] tb:mt-[45px]`}
+          } tb:w-[573px] tb:pl-[80px] tb:mt-[45px] dk:w-[730px] `}
         />
-        <div className="top flex">
+        <div className="top flex relative">
+          {errorMessage && (
+            <p className="text-[#F74646] text-center w-full text-[15px] font-bold absolute mb:right-[-30%] mb:top-[42%] tb:right-[-100%] tb:top-[120%] dk:right-[-160%] dk:top-[125%]">
+              {errorMessage}
+            </p>
+          )}
           <img
             src={searchIcon}
             alt="icon search"
-            className="relative top-5 right-24 w-[20px] h-[20px] tb:right-48 tb:w-[24px] tb:h-[24px] tb:top-16"
+            className="relative top-5 right-24 w-[20px] h-[20px] tb:right-48 tb:w-[24px] tb:h-[24px] tb:top-16 dk:right-68"
           />
           <button
             type="submit"
             className={`relative top-2 left-26 w-[84px] h-[46px] ${
               darkMode ? "bg-search-dark" : "bg-search-light"
-            }  text-[#fff] rounded-[10px] tb:w-[106px] tb:h-[50px] tb:left-54 tb:top-[50px]`}
+            }  text-[#fff] rounded-[10px] tb:w-[106px] tb:h-[50px] tb:left-54 tb:top-[50px] dk:left-74`}
           >
             Search
           </button>
@@ -115,11 +126,11 @@ function App() {
       </form>
 
       <div
-        className={`px-[24px] mb-[79px] pt-[32px] pb-[48px] w-[327px] shadow-custom ${
+        className={`px-[24px] flex flex-col dk:items-end mb-[79px] pt-[32px] pb-[48px] w-[327px] shadow-custom ${
           darkMode ? "bg-input-dark" : "bg-input-light"
-        } rounded-[15px] mt-[26px] tb:w-[573px] tb:mt-[75px] tb:mb-[236px] tb:p-[40px]`}
+        } rounded-[15px] mt-[26px] tb:w-[573px] tb:mt-[75px] tb:mb-[236px] tb:p-[40px] dk:w-[730px] dk:p-[48px]`}
       >
-        <div className="first-info flex gap-[19px] tb:gap-[41px] items-center">
+        <div className="first-info flex gap-[19px] tb:gap-[41px] dk:gap-[37px]">
           <div className="image">
             <img
               className="w-[70px] h-[70px] rounded-[50%] tb:w-[117px] tb:h-[117px]"
@@ -127,21 +138,24 @@ function App() {
               alt="profile image"
             />
           </div>
-          <div className="">
-            <p
-              className={`${
-                darkMode ? "text-[#fff]" : "text-[#2B3442]"
-              } text-[16px] font-bold tb:text-[26px]`}
-            >
-              {user?.name}
-            </p>
-            <p className="text-[#0079FF] text-[13px] font-normal tb:text-[16px]">
-              @{user?.login}
-            </p>
+          <div className="dk:flex  dk:justify-between dk:w-[480px]">
+            <div className="dk:flex dk:flex-col">
+              <p
+                className={`${
+                  darkMode ? "text-[#fff]" : "text-[#2B3442]"
+                } text-[16px] font-bold tb:text-[26px]`}
+              >
+                {user?.name}
+              </p>
+              <p className="text-[#0079FF] text-[13px] font-normal tb:text-[16px]">
+                @{user?.login}
+              </p>
+            </div>
+
             <p
               className={`${
                 darkMode ? "text-[#fff] " : "text-[#697C9A] "
-              }text-[13px] font-normal tb:text-[16px]`}
+              }text-[13px] font-normal tb:text-[16px] dk:mt-[10px]`}
             >
               {" "}
               Joined {formatDate(user?.created_at)}
@@ -149,11 +163,11 @@ function App() {
           </div>
         </div>
 
-        <div className="lorem-info mt-[33px] tb:mt-[24px]">
+        <div className="lorem-info mt-[33px] tb:mt-[24px] dk:mt-[0px]">
           <p
             className={`${
               darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
-            } text-[13px] font-normal tb:text-[16px] `}
+            } text-[13px] font-normal tb:text-[16px] dk:w-[490px] `}
           >
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
             odio. Quisque volutpat mattis eros.
@@ -214,7 +228,7 @@ function App() {
           </div>
         </div>
         <div className="more-info flex flex-col mt-[24px] gap-[16px] tb:flex-row tb:mt-[30px]">
-          <div className="tb:flex tb:flex-col tb:gap-[19px]">
+          <div className="tb:flex tb:flex-col tb:gap-[19px] flex flex-col gap-[16px]">
             <div className="location flex gap-[19.25px] items-center">
               <img src={locationIcon} alt="location icon" />
               <span
@@ -236,7 +250,7 @@ function App() {
               </span>
             </div>
           </div>
-          <div className="tb:flex tb:flex-col tb:gap-[15px]">
+          <div className="tb:flex tb:flex-col tb:gap-[15px] flex flex-col gap-[16px]">
             <div className="location flex gap-[13px] items-center">
               <img src={twitterIcon} alt="twitter icon" />
               <span
