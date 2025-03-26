@@ -236,7 +236,7 @@ function App() {
                   darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
                 } text-[13px] font-normal hover:cursor-pointer hover:underline`}
               >
-                {user?.location}
+                {user?.location || "Not Available"}
               </span>
             </div>
             <div className="location flex gap-[13.01px] items-center">
@@ -246,7 +246,7 @@ function App() {
                   darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
                 } text-[13px] font-normal hover:cursor-pointer hover:underline`}
               >
-                {user?.blog}
+                {user?.blog || "Not Available"}
               </span>
             </div>
           </div>
@@ -268,7 +268,7 @@ function App() {
                   darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
                 } text-[13px] font-normal hover:cursor-pointer hover:underline`}
               >
-                {user?.company}
+                {user?.company || "Not Available"}
               </span>
             </div>
           </div>
