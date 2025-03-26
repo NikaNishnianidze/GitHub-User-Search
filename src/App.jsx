@@ -97,7 +97,7 @@ function App() {
           type="text"
           name="login"
           placeholder="Search GitHub username…"
-          className={`w-[327px] h-[60px] absolute py-[7px] pr-[7px] pl-[45px] shadow-custom ${
+          className={`w-[327px] h-[60px] cursor-pointer absolute py-[7px] pr-[7px] pl-[45px] shadow-custom ${
             darkMode ? "bg-input-dark" : "bg-input-light"
           } rounded-[15px] text-[13px] ${
             darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
@@ -118,7 +118,7 @@ function App() {
             type="submit"
             className={`relative top-2 left-26 w-[84px] h-[46px] ${
               darkMode ? "bg-search-dark" : "bg-search-light"
-            }  text-[#fff] rounded-[10px] tb:w-[106px] tb:h-[50px] tb:left-54 tb:top-[50px] dk:left-74`}
+            } hover:bg-search-hover text-[#fff] cursor-pointer rounded-[10px] tb:w-[106px] tb:h-[50px] tb:left-54 tb:top-[50px] dk:left-74`}
           >
             Search
           </button>
@@ -234,7 +234,7 @@ function App() {
               <span
                 className={`${
                   darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
-                } text-[13px] font-normal`}
+                } text-[13px] font-normal hover:cursor-pointer hover:underline`}
               >
                 {user?.location}
               </span>
@@ -244,7 +244,7 @@ function App() {
               <span
                 className={`${
                   darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
-                } text-[13px] font-normal`}
+                } text-[13px] font-normal hover:cursor-pointer hover:underline`}
               >
                 {user?.blog}
               </span>
@@ -256,7 +256,7 @@ function App() {
               <span
                 className={`${
                   darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
-                } text-[13px] font-normal`}
+                } text-[13px] font-normal hover:cursor-pointer hover:underline`}
               >
                 {user?.twitter_username || "Not Available"}
               </span>
@@ -266,7 +266,7 @@ function App() {
               <span
                 className={`${
                   darkMode ? "text-[#fff]" : "text-[#4B6A9B]"
-                } text-[13px] font-normal`}
+                } text-[13px] font-normal hover:cursor-pointer hover:underline`}
               >
                 {user?.company}
               </span>
