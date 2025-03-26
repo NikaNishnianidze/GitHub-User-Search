@@ -16,7 +16,11 @@ function App() {
     getUser();
   }, []);
 
-  const getUser = async () => {
+  const getUser = async (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+
     try {
       const response = await fetch(
         `https://api.github.com/users/${userSearch}`
@@ -49,7 +53,10 @@ function App() {
         </div>
       </header>
 
-      <form className="flex flex-col mt-[36px] items-center">
+      <form
+        onClick={(event) => getUser(event)}
+        className="flex flex-col mt-[36px] items-center"
+      >
         <input
           onChange={(event) => setUserSearch(event.target.value)}
           type="text"
@@ -64,7 +71,7 @@ function App() {
             className="relative top-5 right-24 w-[20px] h-[20px]"
           />
           <button
-            onClick={() => getUser()}
+            type="submit"
             className="relative top-2 left-26 w-[84px] h-[46px] bg-search text-[#fff] rounded-[10px]"
           >
             Search
